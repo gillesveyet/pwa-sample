@@ -2,26 +2,32 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.4.
 
-## Development server
+PWA support according to: https://angular.io/guide/service-worker-getting-started
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Add To Home Screen: https://stackoverflow.com/questions/53871586/angular-catch-beforeinstallprompt-event-add-to-homescreen-in-dev-tools-applic  
+May no longer be necessary with Chrome 75+ : https://techdows.com/2019/03/install-pwas-from-omnibox-chrome.html
 
-## Code scaffolding
+## Build for deployment
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Designed to be deployed on `/pwa-sample` path.  
+Check https://gillesveyet.yo.fr/pwa-sample/
 
-## Build
+Build command: `ng build --prod --base-href /pwa-sample/`
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Path was manually added to src/manifest.json:
+```json  
+"scope": "/pwa-sample/",
+"start_url": "/pwa-sample/",
+```
 
-## Running unit tests
+## Test with local server
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Edit src/manifest.json to remove `/pwa-sample`
+```json  
+"scope": "/",
+"start_url": "/",
+```
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Run `ng build --prod`  
+Launch local server:  `http-server -c-1 dist/pwa-sample`  
+Open browser on `http://127.0.0.1:8080`
